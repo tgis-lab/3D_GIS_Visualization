@@ -1,7 +1,5 @@
 import geopandas as gpd
 import numpy as np
-import geopandas as gpd
-import numpy as np
 import pygltflib
 
 class GLTFProducer:
@@ -91,7 +89,7 @@ class GLTFProducer:
         # 保存 GLB 文件
         gltf.save(output_path)
 
-    def gltf_from_shapefile(self, shapefile_path, output_path):
+    def gltf_from_shapefile(self, shapefile_path, attribute_name,output_path):
         gdf = gpd.read_file(shapefile_path)
 
         vertices = []
@@ -99,7 +97,7 @@ class GLTFProducer:
         colors = []
         fixed_color = [0.3, 0.3, 0.5, 1]  # 固定颜色，红色 (RGBA)
 
-        for geom, attr_value in zip(gdf.geometry, gdf["HEIGHT"]):  # 假设 "HEIGHT" 是您要使用的属性名
+        for geom, attr_value in zip(gdf.geometry, gdf[attribute_name]):  # 假设 "HEIGHT" 是您要使用的属性名
             if geom.geom_type == "Polygon" or geom.geom_type == "MultiPolygon":
                 for poly in [geom] if geom.geom_type == "Polygon" else geom.geoms:
                     exterior_coords = np.array(poly.exterior.coords)
@@ -223,12 +221,10 @@ class GLTFProducer:
 
 if __name__ == "__main__":
     gp = GLTFProducer()
-    gp.gltf_from_shapefile("C:/Users/Administrator/Desktop/noisemap/Baoding_Building13.shp",
+    gp.gltf_from_shapefile("your_file_patch.shp","HEIGHT",
                                            "C:/Users/Administrator/Desktop/testfile/threedimension_building_height.glb")
-    #gp.gltf_from_array(vertices1, indices1, colors1,
-                        #"C:/Users/Administrator/Desktop/testfile/test_cube.glb")
     # 解码 GLTF 数据
     #points, triangles, colors = gp.decode_gltf()
 # print("Points:\n", points)
 # print("Triangles:\n", triangles)
- # print("Colors:\n", colors)
+# print("Colors:\n", colors)
