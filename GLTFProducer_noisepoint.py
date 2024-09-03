@@ -1,7 +1,5 @@
 import geopandas as gpd
 import numpy as np
-import geopandas as gpd
-import numpy as np
 import shapefile
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
@@ -219,4 +217,4 @@ class GLTFProducer(object):
 
 if __name__ == "__main__":
     gp = GLTFProducer()
-    gp.gltf_from_shapefile("C:/Users/Administrator/Desktop/noisemap/noisemap4.shp", "LEQ", "C:/Users/Administrator/Desktop/testfile/threedimension_totle.glb")
+    gp.gltf_from_shapefile("your_file_patch.shp", "attribute_name", "your_output_patch.glb")
